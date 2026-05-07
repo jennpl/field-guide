@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Guide — Urban Forest Schooling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE0;
+    --cream-dark: #EDE4CE;
+    --bark: #6B4C2A;
+    --bark-light: #9B7045;
+    --sage: #7A9E7E;
+    --sage-pale: #E8F0E4;
+    --terra: #C4714A;
+    --terra-light: #E8A882;
+    --terra-pale: #F5E6DC;
+    --ochre: #C9973A;
+    --ink: #2C1F0E;
+    --ink-light: #5C4A32;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); font-family: 'Nunito', sans-serif; color: var(--ink); min-height: 100vh; }
+  .app { max-width: 480px; margin: 0 auto; padding: 2rem 1.25rem 4rem; min-height: 100vh; }
+  .header { text-align: center; margin-bottom: 2.5rem; }
+  .header-deco { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 0.5rem; }
+  .deco-line { height: 1px; width: 50px; background: var(--bark-light); opacity: 0.5; }
+  .brand-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--bark); line-height: 1.1; letter-spacing: -0.5px; }
+  .brand-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--bark-light); margin-top: 4px; }
+  .brand-tagline { font-size: 12px; color: var(--ink-light); margin-top: 8px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; }
+  .screen-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; font-weight: 400; }
+  .screen-hint { font-size: 13px; color: var(--ink-light); margin-bottom: 1.5rem; opacity: 0.8; }
+  .env-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+  .env-card { background: white; border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 1.1rem 1rem; cursor: pointer; transition: all 0.18s ease; text-align: center; }
+  .env-card:hover { border-color: var(--sage); background: var(--sage-pale); transform: translateY(-1px); }
+  .env-card.selected { border-color: var(--sage); background: var(--sage-pale); }
+  .env-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+  .env-name { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .state-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+  .state-card { background: white; border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 1rem; cursor: pointer; transition: all 0.18s ease; display: flex; align-items: flex-start; gap: 10px; }
+  .state-card:hover { border-color: var(--terra-light); background: var(--terra-pale); transform: translateY(-1px); }
+  .state-card.selected { border-color: var(--terra); background: var(--terra-pale); }
+  .state-icon { font-size: 22px; flex-shrink: 0; }
+  .state-text { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .btn-primary { width: 100%; padding: 14px; background: var(--bark); color: var(--cream); border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.18s ease; }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-secondary { width: 100%; padding: 12px; background: transparent; color: var(--bark-light); border: 1.5px solid var(--cream-dark); border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.18s ease; margin-top: 10px; }
+  .btn-secondary:hover { border-color: var(--bark-light); color: var(--bark); }
+  .moment-card { background: white; border-radius: 20px; border: 1.5px solid var(--cream-dark); overflow: hidden; margin-bottom: 1rem; }
+  .moment-header { background: var(--bark); padding: 1.25rem 1.5rem; }
+  .moment-location-tag { font-size: 11px; color: var(--terra-light); font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; }
+  .moment-alive { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--cream); line-height: 1.5; font-style: italic; }
+  .moment-body { padding: 1.25rem 1.5rem; }
+  .moment-section { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--cream-dark); }
+  .moment-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .moment-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  .label-follow { color: var(--sage); }
+  .label-let { color: var(--terra); }
+  .label-dev { color: var(--ochre); }
+  .label-wonder { color: var(--bark-light); }
+  .moment-section-text { font-size: 14px; line-height: 1.6; color: var(--ink); }
+  .wonder-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: var(--ink-light); line-height: 1.6; }
+  .loading-state { text-align: center; padding: 3rem 1rem; }
+  .loading-icon { font-size: 36px; animation: sway 2s ease-in-out infinite; display: block; margin-bottom: 1rem; }
+  @keyframes sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+  .loading-text { font-family: 'Playfair Display', serif; font-style: italic; color: var(--bark-light); font-size: 16px; }
+  .progress { display: flex; justify-content: center; gap: 8px; margin-bottom: 2rem; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cream-dark); transition: all 0.2s; }
+  .dot.active { background: var(--bark); width: 20px; border-radius: 4px; }
+  .dot.done { background: var(--sage); }
+  .screen { display: none; }
+  .screen.active { display: block; }
+  .playlab-note { text-align: center; margin-top: 2rem; font-size: 11px; color: var(--ink-light); opacity: 0.5; font-weight: 500; }
+  .error-text { font-size: 13px; color: var(--terra); text-align: center; margin-top: 10px; font-weight: 500; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-deco">
+      <div class="deco-line"></div>
+      <span>🌿</span>
+      <div class="deco-line"></div>
+    </div>
+    <div class="brand-title">Field Guide</div>
+    <div class="brand-subtitle">for Urban Forest Schooling</div>
+    <div class="brand-tagline">A guide for caregivers &amp; babies in the city</div>
+  </div>
+
+  <!-- Screen 1: Environment -->
+  <div class="screen active" id="screen-1">
+    <div class="progress">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="screen-title">Where are you right now?</div>
+    <div class="screen-hint">Choose your urban nature spot</div>
+    <div class="env-grid">
+      <div class="env-card" onclick="selectEnv(this, 'Park or green space')"><span class="env-icon">🌳</span><div class="env-name">Park or green space</div></div>
+      <div class="env-card" onclick="selectEnv(this, 'Sidewalk or street')"><span class="env-icon">🏙️</span><div class="env-name">Sidewalk or street</div></div>
+      <div class="env-card" onclick="selectEnv(this, 'Community garden')"><span class="env-icon">🌱</span><div class="env-name">Community garden</div></div>
+      <div class="env-card" onclick="selectEnv(this, 'Playground')"><span class="env-icon">🛝</span><div class="env-name">Playground</div></div>
+      <div class="env-card" onclick="selectEnv(this, 'Stoop or building exterior')"><span class="env-icon">🏠</span><div class="env-name">Stoop or building exterior</div></div>
+      <div class="env-card" onclick="selectEnv(this, 'Near water — fountain, puddle, or river')"><span class="env-icon">💧</span><div class="env-name">Near water</div></div>
+    </div>
+    <button class="btn-primary" id="btn-env" disabled onclick="goToScreen2()">Next — what is your baby noticing? →</button>
+  </div>
+
+  <!-- Screen 2: Baby state -->
+  <div class="screen" id="screen-2">
+    <div class="progress">
+      <div class="dot done"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="screen-title">What is your baby doing?</div>
+    <div class="screen-hint">Follow their lead — what are they drawn to right now?</div>
+    <div class="state-grid">
+      <div class="state-card" onclick="selectState(this, 'staring intently at something nearby')"><span class="state-icon">👀</span><div class="state-text">Staring or gazing intently</div></div>
+      <div class="state-card" onclick="selectState(this, 'reaching and grabbing toward something')"><span class="state-icon">🤚</span><div class="state-text">Reaching or grabbing</div></div>
+      <div class="state-card" onclick="selectState(this, 'trying to mouth or taste something')"><span class="state-icon">👄</span><div class="state-text">Mouthing or tasting</div></div>
+      <div class="state-card" onclick="selectState(this, 'crawling or moving toward something with purpose')"><span class="state-icon">🐛</span><div class="state-text">Crawling toward something</div></div>
+      <div class="state-card" onclick="selectState(this, 'sitting quietly and watching the world')"><span class="state-icon">🧘</span><div class="state-text">Sitting and watching</div></div>
+      <div class="state-card" onclick="selectState(this, 'fussing or seeming overstimulated')"><span class="state-icon">🌊</span><div class="state-text">Fussing or overwhelmed</div></div>
+    </div>
+    <button class="btn-primary" id="btn-state" disabled onclick="generateMoment()">Generate my forest school moment →</button>
+    <button class="btn-secondary" onclick="goToScreen1()">← Back</button>
+  </div>
+
+  <!-- Screen 3: Moment card -->
+  <div class="screen" id="screen-3">
+    <div class="progress">
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot active"></div>
+    </div>
+    <div id="loading-view" class="loading-state">
+      <span class="loading-icon">🍃</span>
+      <div class="loading-text">Finding your moment in the city...</div>
+    </div>
+    <div id="moment-view" style="display:none;">
+      <div class="moment-card">
+        <div class="moment-header">
+          <div class="moment-location-tag"><span id="card-location-icon"></span> <span id="card-location"></span></div>
+          <div class="moment-alive" id="card-alive"></div>
+        </div>
+        <div class="moment-body">
+          <div class="moment-section">
+            <div class="moment-section-label label-follow">🌿 Follow their lead</div>
+            <div class="moment-section-text" id="card-follow"></div>
+          </div>
+          <div class="moment-section">
+            <div class="moment-section-label label-let">🍂 Let it happen</div>
+            <div class="moment-section-text" id="card-let"></div>
+          </div>
+          <div class="moment-section">
+            <div class="moment-section-label label-dev">🌱 What's developing</div>
+            <div class="moment-section-text" id="card-dev"></div>
+          </div>
+          <div class="moment-section">
+            <div class="moment-section-label label-wonder">✨ A wonder to sit with</div>
+            <div class="wonder-text" id="card-wonder"></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="resetApp()">🌿 Find a new moment</button>
+      <button class="btn-secondary" onclick="goToScreen1()">← Start over</button>
+    </div>
+    <div id="error-view" style="display:none;">
+      <div class="error-text">Something went quiet in the forest. Try again?</div>
+      <button class="btn-primary" style="margin-top:1rem;" onclick="generateMoment()">Try again</button>
+      <button class="btn-secondary" onclick="goToScreen1()">← Start over</button>
+    </div>
+  </div>
+
+  <div class="playlab-note">Built for Playlab · Urban Forest Schooling · Brooklyn, NY</div>
+</div>
+
+<script>
+let selectedEnv = null;
+let selectedState = null;
+
+function selectEnv(el, value) {
+  document.querySelectorAll('.env-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedEnv = value;
+  document.getElementById('btn-env').disabled = false;
+}
+
+function selectState(el, value) {
+  document.querySelectorAll('.state-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedState = value;
+  document.getElementById('btn-state').disabled = false;
+}
+
+function goToScreen1() { showScreen('screen-1'); }
+function goToScreen2() { if (!selectedEnv) return; showScreen('screen-2'); }
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+async function generateMoment() {
+  if (!selectedEnv || !selectedState) return;
+  showScreen('screen-3');
+  document.getElementById('loading-view').style.display = 'block';
+  document.getElementById('moment-view').style.display = 'none';
+  document.getElementById('error-view').style.display = 'none';
+
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ environment: selectedEnv, babyState: selectedState })
+    });
+
+    if (!response.ok) throw new Error('Server error');
+    const card = await response.json();
+
+    document.getElementById('card-location-icon').textContent = card.locationIcon;
+    document.getElementById('card-location').textContent = selectedEnv;
+    document.getElementById('card-alive').textContent = card.alive;
+    document.getElementById('card-follow').textContent = card.follow;
+    document.getElementById('card-let').textContent = card.let;
+    document.getElementById('card-dev').textContent = card.developing;
+    document.getElementById('card-wonder').textContent = card.wonder;
+
+    document.getElementById('loading-view').style.display = 'none';
+    document.getElementById('moment-view').style.display = 'block';
+  } catch (err) {
+    document.getElementById('loading-view').style.display = 'none';
+    document.getElementById('error-view').style.display = 'block';
+  }
+}
+
+function resetApp() {
+  selectedState = null;
+  document.querySelectorAll('.state-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('btn-state').disabled = true;
+  showScreen('screen-2');
+}
+</script>
+</body>
+</html>
