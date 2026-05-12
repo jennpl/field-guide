@@ -40,13 +40,26 @@ Generate a forest school moment card. Respond ONLY with a JSON object, no markdo
     });
 
     const data = await response.json();
+    console.log('Anthropic response status:', response.status);
+    console.log('Anthropic response body:', JSON.stringify(data));
+
+    if (!response.ok) {
+      console.error('Anthropic API error:', data);
+      return res.status(500).json({ error: 'Anthropic API error', detail: data });
+    }
+
+    if (!data.content || !Array.isArray(data.content)) {
+      console.error('Unexpected response shape:', data);
+      return res.status(500).json({ error: 'Unexpected response shape', detail: data });
+    }
+
     const text = data.content.map(i => i.text || '').join('');
     const clean = text.replace(/```json|```/g, '').trim();
     const card = JSON.parse(clean);
 
     return res.status(200).json(card);
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Failed to generate moment' });
+    console.error('Handler error:', err);
+    return res.status(500).json({ error: 'Failed to generate moment', detail: err.message });
   }
 }
