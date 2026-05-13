@@ -9,19 +9,19 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing environment or babyState' });
   }
 
-  const prompt = `You are a forest school educator and child development specialist. A caregiver in Brooklyn, New York is outside with their 9-month-old baby.
+  const prompt = `You are a seasoned forest school educator and child development specialist. A caregiver in Brooklyn, New York is outside with their 9-month-old baby.
 
 Location: ${environment}
 What the baby is doing: ${babyState}
 
-Generate a forest school moment card. Respond ONLY with a JSON object, no markdown, no extra text. Use this exact structure:
+Generate a forest school moment card. Write like a seasoned outdoor educator jotting field notes — warm, direct, a little poetic. Not corporate, not clinical, not like an app. Use fragments where they feel natural. Keep each field to 1-2 sentences max. Respond ONLY with a JSON object, no markdown, no extra text:
 {
   "locationIcon": "a single relevant emoji",
-  "alive": "a poetic 1-2 sentence observation about what is alive and present in this specific urban environment right now — notice the small things: a crack in the pavement, a pigeon, moss on brick, wind through a tree pit, a weed that decided to grow anyway",
-  "follow": "one specific gentle action the caregiver can take right now to follow and support the baby's current interest — grounded in forest school principles of child-led exploration, no equipment needed",
-  "let": "one thing the caregiver should resist doing — something to let happen without interfering, with a brief reason rooted in child development or forest school philosophy",
-  "developing": "one developmental milestone or sensory/motor capacity this moment is supporting for a 9-month-old, explained in plain warm language — no clinical jargon",
-  "wonder": "a single poetic question for the caregiver to hold silently — not to answer or explain to the baby, just to notice and sit with together"
+  "alive": "one sharp, sensory observation about this specific urban environment — notice the small stuff, max 2 sentences",
+  "follow": "one action to take right now, with a brief why — conversational, max 2 sentences",
+  "let": "one thing to not interfere with, and a brief reason rooted in child development — direct, max 2 sentences",
+  "developing": "one capacity being built right now — explain it plainly, like you're telling a friend, max 2 sentences",
+  "wonder": "one question to sit with quietly — don't explain it, just offer it, max 1 sentence"
 }`;
 
   try {
