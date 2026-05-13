@@ -75,6 +75,23 @@
   .screen.active { display: block; }
   .playlab-note { text-align: center; margin-top: 2rem; font-size: 11px; color: var(--ink-light); opacity: 0.5; font-weight: 500; }
   .error-text { font-size: 13px; color: var(--terra); text-align: center; margin-top: 10px; font-weight: 500; line-height: 1.5; }
+.leaves-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.leaf-bounce {
+  font-size: 32px;
+  display: inline-block;
+  animation: bounce 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0px); }
+  100% { transform: translateY(-18px); }
+}
 </style>
 </head>
 <body>
@@ -139,9 +156,13 @@
       <div class="dot active"></div>
     </div>
     <div id="loading-view" class="loading-state">
-      <span class="loading-icon">🍃</span>
-      <div class="loading-text">Finding your moment in the city...</div>
-    </div>
+  <div class="leaves-container">
+    <span class="leaf-bounce" style="animation-delay: 0s">🍃</span>
+    <span class="leaf-bounce" style="animation-delay: 0.2s">🌿</span>
+    <span class="leaf-bounce" style="animation-delay: 0.4s">🍃</span>
+  </div>
+  <div class="loading-text">Finding your moment in the city...</div>
+</div>
     <div id="moment-view" style="display:none;">
       <div class="moment-card">
         <div class="moment-header">
