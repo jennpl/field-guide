@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Field Guide — Urban Forest Schooling</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #F5EFE0;
@@ -27,10 +27,10 @@
   .header { text-align: center; margin-bottom: 2.5rem; }
   .header-deco { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 0.5rem; }
   .deco-line { height: 1px; width: 50px; background: var(--bark-light); opacity: 0.5; }
-  .brand-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--bark); line-height: 1.1; letter-spacing: -0.5px; }
-  .brand-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--bark-light); margin-top: 4px; }
+  .brand-title { font-family: 'Lora', serif; font-size: 32px; font-weight: 700; color: var(--bark); line-height: 1.1; letter-spacing: -0.5px; }
+  .brand-subtitle { font-family: 'Lora', serif; font-style: italic; font-size: 14px; color: var(--bark-light); margin-top: 4px; }
   .brand-tagline { font-size: 12px; color: var(--ink-light); margin-top: 8px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; }
-  .screen-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; font-weight: 400; }
+  .screen-title { font-family: 'Lora', serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; font-weight: 400; }
   .screen-hint { font-size: 13px; color: var(--ink-light); margin-bottom: 1.5rem; opacity: 0.8; }
   .env-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
   .env-card { background: white; border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 1.1rem 1rem; cursor: pointer; transition: all 0.18s ease; text-align: center; }
@@ -52,7 +52,7 @@
   .moment-card { background: white; border-radius: 20px; border: 1.5px solid var(--cream-dark); overflow: hidden; margin-bottom: 1rem; }
   .moment-header { background: var(--bark); padding: 1.25rem 1.5rem; }
   .moment-location-tag { font-size: 11px; color: var(--terra-light); font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; }
-  .moment-alive { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--cream); line-height: 1.5; font-style: italic; }
+  .moment-alive { font-family: 'Lora', serif; font-size: 17px; color: var(--cream); line-height: 1.5; font-style: italic; }
   .moment-body { padding: 1.25rem 1.5rem; }
   .moment-section { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--cream-dark); }
   .moment-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -62,11 +62,11 @@
   .label-dev { color: var(--ochre); }
   .label-wonder { color: var(--bark-light); }
   .moment-section-text { font-size: 14px; line-height: 1.6; color: var(--ink); }
-  .wonder-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: var(--ink-light); line-height: 1.6; }
+  .wonder-text { font-family: 'Lora', serif; font-style: italic; font-size: 15px; color: var(--ink-light); line-height: 1.6; }
   .loading-state { text-align: center; padding: 3rem 1rem; }
   .loading-icon { font-size: 36px; animation: sway 2s ease-in-out infinite; display: block; margin-bottom: 1rem; }
   @keyframes sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-  .loading-text { font-family: 'Playfair Display', serif; font-style: italic; color: var(--bark-light); font-size: 16px; }
+  .loading-text { font-family: 'Lora', serif; font-style: italic; color: var(--bark-light); font-size: 16px; }
   .progress { display: flex; justify-content: center; gap: 8px; margin-bottom: 2rem; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cream-dark); transition: all 0.2s; }
   .dot.active { background: var(--bark); width: 20px; border-radius: 4px; }
@@ -75,23 +75,6 @@
   .screen.active { display: block; }
   .playlab-note { text-align: center; margin-top: 2rem; font-size: 11px; color: var(--ink-light); opacity: 0.5; font-weight: 500; }
   .error-text { font-size: 13px; color: var(--terra); text-align: center; margin-top: 10px; font-weight: 500; line-height: 1.5; }
-.leaves-container {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 1rem;
-}
-
-.leaf-bounce {
-  font-size: 32px;
-  display: inline-block;
-  animation: bounce 0.7s ease-in-out infinite alternate;
-}
-
-@keyframes bounce {
-  0%   { transform: translateY(0px); }
-  100% { transform: translateY(-18px); }
-}
 </style>
 </head>
 <body>
@@ -156,13 +139,9 @@
       <div class="dot active"></div>
     </div>
     <div id="loading-view" class="loading-state">
-  <div class="leaves-container">
-    <span class="leaf-bounce" style="animation-delay: 0s">🍃</span>
-    <span class="leaf-bounce" style="animation-delay: 0.2s">🌿</span>
-    <span class="leaf-bounce" style="animation-delay: 0.4s">🍃</span>
-  </div>
-  <div class="loading-text">Finding your moment in the city...</div>
-</div>
+      <span class="loading-icon">🍃</span>
+      <div class="loading-text">Finding your moment in the city...</div>
+    </div>
     <div id="moment-view" style="display:none;">
       <div class="moment-card">
         <div class="moment-header">
@@ -198,7 +177,7 @@
     </div>
   </div>
 
-  <div class="playlab-note">Built for Playlab · Urban Forest Schooling · Brooklyn, NY</div>
+  <div class="playlab-note">Built by <a href="https://substack.com/@jennpliu" target="_blank" style="color: inherit; text-decoration: underline; opacity: 0.8;">Jenn Liu</a> · Brooklyn, NY</div>
 </div>
 
 <script>
